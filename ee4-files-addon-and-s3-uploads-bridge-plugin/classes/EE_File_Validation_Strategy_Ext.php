@@ -41,7 +41,8 @@ class EE_FILE_Validation_Strategy_Ext extends EE_FILE_Validation_Strategy {
 
         $allowed = ($ex != '') ? $ex : array('gif','png' ,'jpg','jpeg','bmp');
 
-        $extn = $filetype['ext'];
+        $extn = strtolower($filetype['ext']);
+        $allowed = array_map('strtolower', $allowed);
         if (!in_array($extn, $allowed) || strpos($host, $server) === FALSE) {
             throw new EE_Validation_Error($this->get_validation_error_message(), 'regex');
         }
