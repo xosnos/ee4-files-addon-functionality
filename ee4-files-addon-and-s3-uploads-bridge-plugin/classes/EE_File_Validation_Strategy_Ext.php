@@ -19,15 +19,20 @@ class EE_FILE_Validation_Strategy_Ext extends EE_FILE_Validation_Strategy {
         $filetype = wp_check_filetype($normalized_value);
         $data = parse_url($normalized_value);
         
-        $host = $data['host'];
+        $host = isset($data['host']) ? $data['host'] : '';
 
         // use s3-uploads url if defined, otherwise use default host
-        $server = (defined('S3_UPLOADS_BUCKET_URL')) ? str_replace('https://', '', S3_UPLOADS_BUCKET_URL) : $_SERVER['SERVER_NAME'];
+        if (defined('S3_UPLOADS_BUCKET_URL')) {
+            $s3_url_data = parse_url(S3_UPLOADS_BUCKET_URL);
+            $server = isset($s3_url_data['host']) ? $s3_url_data['host'] : S3_UPLOADS_BUCKET_URL;
+        } else {
+            $server = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
+        }
 
         $allowed = ($ex != '') ? $ex : array('gif','png' ,'jpg','jpeg','bmp');
         
-        $extn =  $filetype['ext'];
-        if (!in_array($extn, $allowed) || strpos($host, $server) === FALSE) {
+        $extn = isset($filetype['ext']) ? $filetype['ext'] : '';
+        if (!in_array($extn, $allowed) || ($server !== '' && strpos($host, $server) === FALSE)) {
             throw new EE_Validation_Error($this->get_validation_error_message(), 'regex');
         }
 
