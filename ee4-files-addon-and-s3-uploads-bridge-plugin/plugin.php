@@ -4,9 +4,9 @@
 Plugin Name: EE4 Files Addon Functionality Plugin
 Plugin URI:  https://github.com/xosnos/ee4-files-addon-functionality
 Description: Functionality plugin to improve the EE4 files addon, last updated in 2017. 
-Author:      Steven Nguyen (U-21 AD), Alex Gobert (2024-2025 UNAVSA IT Director)
-Author URI:  https://xosnos.com/
-Version:     1.3.3
+Author:      Steven Nguyen (UNAVSA-21 Associate Director), Alex Gobert ('24-'25 UNAVSA IT Director)
+Author URI:  https://unavsa.org/
+Version:     1.3.4
 License:     GPL-3.0
 License URI: https://opensource.org/license/gpl-3-0
 */
